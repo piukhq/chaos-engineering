@@ -1,0 +1,14 @@
+---
+apiVersion: linkerd.io/v1alpha2
+kind: ServiceProfile
+metadata:
+  name: chaos-server.chaos-server.svc.cluster.local
+  namespace: chaos-server
+spec:
+  routes:
+    - condition:
+        method: GET
+        pathRegex: /api
+      name: GET /api
+      isRetryable: true
+      timeout: 2000ms

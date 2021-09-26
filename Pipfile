@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+falcon = "*"
+
+[dev-packages]
+flake8 = "*"
+isort = "*"
+black = "==21.12b0"
+ptpython = "*"
+
+[requires]
+python_version = "3.10"

@@ -1,0 +1,15 @@
+---
+apiVersion: policy.linkerd.io/v1beta1
+kind: ServerAuthorization
+metadata:
+  namespace: chaos-server
+  name: chaos-server
+spec:
+  server:
+    selector:
+      matchLabels:
+        app: chaos-server
+  client:
+    meshTLS:
+      identities:
+        - chaos-client.chaos-client.serviceaccount.identity.linkerd.cluster.local

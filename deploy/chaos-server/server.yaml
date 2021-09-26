@@ -1,0 +1,13 @@
+---
+apiVersion: policy.linkerd.io/v1beta1
+kind: Server
+metadata:
+  namespace: chaos-server
+  name: chaos-server
+  labels:
+    app: chaos-server
+spec:
+  podSelector:
+    matchLabels:
+      app: chaos-server
+  port: 6502

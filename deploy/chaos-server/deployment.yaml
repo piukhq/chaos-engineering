@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chaos-server
+  namespace: chaos-server
+  labels:
+    app: chaos-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: chaos-server
+  template:
+    metadata:
+      labels:
+        app: chaos-server
+      annotations:
+        kubectl.kubernetes.io/default-container: app
+        linkerd.io/inject: enabled
+    spec:
+      serviceAccountName: chaos-server
+      containers:
+        - name: app
+          image: ghcr.io/binkhq/chaos-engineering:latest
+          args: [python, server.py]
+          ports:
+            - containerPort: 6502
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 32Mi
+            requests:
+              cpu: 100m
+              memory: 32Mi
