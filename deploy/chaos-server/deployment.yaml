@@ -20,6 +20,7 @@ spec:
         linkerd.io/inject: enabled
     spec:
       serviceAccountName: chaos-server
+      terminationGracePeriodSeconds: 1
       containers:
         - name: app
           image: ghcr.io/binkhq/chaos-engineering:latest
