@@ -7,13 +7,10 @@ Simple repo to demo Kubernetes, Linkerd, and Kubedoom.
 
 ## Useful Commands
 
-Start a K3s Cluster in Lima:
+Start a Kubernetes Cluster in Kind:
 ```shell
-$ brew install lima
-$ limactl start https://raw.githubusercontent.com/lima-vm/lima/master/examples/k3s.yaml
-$ mkdir -p "~/.lima/k3s/conf"
-$ export KUBECONFIG="~/.lima/k3s/conf/kubeconfig.yaml"
-$ limactl shell k3s sudo cat /etc/rancher/k3s/k3s.yaml >$KUBECONFIG
+$ brew install kind
+$ kind create cluster
 ```
 
 Install Linkerd:
@@ -46,6 +43,11 @@ View Client Status:
 $ watch -n 1 kubectl logs -n chaos-client deploy/chaos-client --tail 1
 ```
 
+View Client Status in JSON with JQ formatting:
+```shell
+$ watch 'kubectl logs -n chaos-client deploy/chaos-client --tail 1 | jq'
+```
+
 Deploy the Chaos Server Authroization:
 ```shell
 $ kubectl apply -k deploy/chaos-server-authorization
@@ -53,10 +55,29 @@ $ kubectl apply -k deploy/chaos-server-authorization
 
 Deploy the Chaos Server Service Profile:
 ```shell
-$ kubectl apply -k deploy/chaos-server-authorization
+$ kubectl apply -k deploy/chaos-server-profile
 ```
 
 View Effective Success Rate:
 ```shell
 $ linkerd viz routes deploy/chaos-client -n chaos-client --to service/chaos-server --to-namespace chaos-server -o wide
 ```
+
+Deploy Kubedoom:
+```shell
+$ kubectl apply -k deploy/kubedoom
+```
+
+Port-Forward Kubedoom
+```
+$ kubectl port-forward -n kubedoom deploy/kubedoom 5900:5900
+```
+
+## VNC Tips:
+* Use Tiger VNC: http://tigervnc.bphinz.com/nightly/
+* connect to `127.0.0.1`
+* password is `idbehold`
+
+## Doom Tips:
+* `iddqd` God Mode
+* `idfa` All Weapons, etc

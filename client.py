@@ -1,3 +1,4 @@
+import json
 from os import getenv
 
 import requests
@@ -23,4 +24,4 @@ while True:
     elif req.status_code <= 599:
         status["500s"] += 1
     status["total"] += 1
-    print(status)
+    print(json.dumps(status))
