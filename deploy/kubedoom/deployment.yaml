@@ -21,7 +21,7 @@ spec:
       hostNetwork: true
       serviceAccountName: kubedoom
       containers:
-        - image: cpressland/kubedoom:latest
+        - image: ghcr.io/storax/kubedoom:0.6.0
           env:
             - name: NAMESPACE
               value: chaos-server
